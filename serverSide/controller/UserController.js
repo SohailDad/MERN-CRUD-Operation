@@ -39,7 +39,7 @@ const GetUser = async (req, res) =>{
 // Update user
 const UpdateUser = async (req, res)=>{
     try {
-        UserId = req.params.Id
+       const UserId = req.params.Id
         const updatedUser = await UserModels.findByIdAndUpdate(UserId, req.body, {new:true})
 
         if(!updatedUser){
@@ -48,9 +48,26 @@ const UpdateUser = async (req, res)=>{
         res.status(200).json({success: true, message:'User updated successfully',updatedUser})
     } catch (error) {
         console.log(error);
+        return res.status(500).json({success: false, message: 'internal server error'})
+
     }
 }
 
-// 26:51
+// Delete User API
 
-export { Createuser, GetUser, UpdateUser }
+const DeleteUser = async (req, res) =>{
+    try {
+        const UserId = req.params.Id
+        const deletedUser = await UserModels.findByIdAndDelete(UserId);
+        if (!deletedUser) {
+            return res.status(404).json({success: false,message: 'user not found'})
+        }
+
+        res.status(200).json({success: true, message:'User updated successfully',updatedUser})
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({success:false,message:"internal server error"})
+    }
+}
+
+export { Createuser, GetUser, UpdateUser , DeleteUser}
