@@ -70,4 +70,6 @@ const DeleteUser = async (req, res) =>{
     }
 }
 
+// 34:59
+
 export { Createuser, GetUser, UpdateUser , DeleteUser}
